@@ -122,7 +122,7 @@
     <h2>Archive Search</h2>
     
     <div class="input-group">
-        <input type="text" id="searchInput" placeholder="Enter Document ID (e.g. L01)" onkeypress="if(event.key === 'Enter') searchArchive()">
+        <input type="text" id="searchInput" placeholder="Enter Document Name/ID" onkeypress="if(event.key === 'Enter') searchArchive()">
         <button onclick="searchArchive()">Locate Document</button>
     </div>
 
@@ -178,7 +178,7 @@
             document.getElementById('res-stat').innerText = doc.stat;
             document.getElementById('res-stat').className = 'restriction-' + doc.class;
         } else {
-            alert("ACCESS DENIED: EXACT MATCH NOT FOUND");
+            alert("MATCH NOT FOUND - HAVE YOU CHECKED YOUR DUSTANDGLORYIDS.TXT FILE?");
             resultDiv.style.display = 'none';
         }
     }
