@@ -6,32 +6,37 @@
     <title>Archive Locator System</title>
     <style>
         body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
-            background-color: #121212; 
-            color: #333; 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            background-color: #1a1d23; 
+            color: #e0e0e0; 
             display: flex; 
             justify-content: center; 
-            padding: 50px 20px; 
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px; 
             margin: 0;
         }
 
         .container { 
-            background: #000000; 
+            background: #242933; 
             padding: 40px; 
-            border-radius: 4px; 
-            border: 1px solid #007bff; 
+            border-radius: 12px; 
+            border: 1px solid #333b4d; 
             width: 100%; 
             max-width: 450px; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
         }
 
         h2 { 
             text-align: center; 
-            color: #444;
-            font-size: 1.4rem;
+            color: #4ecdc4;
+            font-size: 1.6rem;
             margin-top: 0;
-            margin-bottom: 25px;
-            letter-spacing: 0.5px;
+            margin-bottom: 30px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #333b4d;
+            padding-bottom: 15px;
         }
 
         .input-group {
@@ -40,51 +45,75 @@
 
         input { 
             width: 100%; 
-            padding: 12px; 
+            padding: 14px; 
             box-sizing: border-box; 
             margin-bottom: 15px; 
-            background: #007bff; 
-            border: 1px solid #007bff; 
-            border-radius: 4px;
+            background: #1a1d23; 
+            border: 1px solid #444; 
+            border-radius: 8px;
+            color: #fff;
             font-size: 1rem; 
+            transition: all 0.3s ease;
         }
 
         input:focus {
             outline: none;
-            border-color: #007bff;
-            box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+            border-color: #4ecdc4;
+            box-shadow: 0 0 0 2px rgba(78, 205, 196, 0.2);
         }
 
         button { 
             width: 100%; 
-            padding: 12px; 
-            background: #007bff; 
-            color: white; 
+            padding: 14px; 
+            background: #4ecdc4; 
+            color: #1a1d23; 
             border: none; 
-            border-radius: 4px;
-            font-weight: 600; 
+            border-radius: 8px;
+            font-weight: 700; 
+            text-transform: uppercase;
             cursor: pointer; 
-            transition: background 0.2s;
+            transition: transform 0.1s, background 0.2s;
         }
 
         button:hover { 
-            background: #0056b3; 
+            background: #45b7af; 
+            transform: translateY(-1px);
+        }
+
+        button:active {
+            transform: translateY(0);
         }
 
         #results { 
             margin-top: 30px; 
-            line-height: 1.8; 
-            border-top: 2px solid #eee; 
-            padding-top: 20px; 
+            line-height: 1.6; 
+            border-top: 1px solid #333b4d; 
+            padding-top: 25px; 
             display: none; 
+            animation: fadeIn 0.4s ease;
         }
 
-        #results p { margin: 5px 0; font-size: 0.95rem; }
-        .restriction-high { color: #d93025; font-weight: bold; }
-        .restriction-none { color: #188038; font-weight: bold; }
-        .restriction-warn { color: #e37400; font-weight: bold; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        #results p { margin: 12px 0; font-size: 0.95rem; color: #b0b0b0; }
+        #results span { color: #fff; font-weight: 500; }
+
+        .restriction-high { color: #ff6b6b !important; font-weight: bold; text-shadow: 0 0 8px rgba(255,107,107,0.3); }
+        .restriction-none { color: #1dd1a1 !important; font-weight: bold; }
+        .restriction-warn { color: #feca57 !important; font-weight: bold; }
         
-        strong { color: #666; font-size: 0.8rem; text-transform: uppercase; margin-right: 5px; }
+        strong { 
+            color: #4ecdc4; 
+            font-size: 0.75rem; 
+            text-transform: uppercase; 
+            margin-right: 10px; 
+            display: block;
+            margin-bottom: 2px;
+            opacity: 0.8;
+        }
     </style>
 </head>
 <body>
@@ -93,19 +122,20 @@
     <h2>Archive Search</h2>
     
     <div class="input-group">
-        <input type="text" id="searchInput" placeholder="Enter Document ID" onkeypress="if(event.key === 'Enter') searchArchive()">
+        <input type="text" id="searchInput" placeholder="Enter Document ID (e.g. L01)" onkeypress="if(event.key === 'Enter') searchArchive()">
         <button onclick="searchArchive()">Locate Document</button>
     </div>
 
     <div id="results">
-        <p><strong>Title</strong> <br><span id="res-title"></span></p>
-        <p><strong>Shelf</strong> <span id="res-shelf"></span></p>
+        <p><strong>Title</strong> <span id="res-title"></span></p>
+        <p><strong>Shelf Location</strong> <span id="res-shelf"></span></p>
         <p><strong>Category</strong> <span id="res-cat"></span></p>
-        <p><strong>Status</strong> <span id="res-stat"></span></p>
+        <p><strong>Security Status</strong> <span id="res-stat"></span></p>
     </div>
 </div>
 
 <script>
+    // ... (Keep your existing script logic here, it works perfectly)
     const archive = [
         { id: "L01", title: "THE ERIE CANAL", shelf: 0, cat: "Library", stat: "NO CONFIDENTIALITY", class: "none" },
         { id: "L02", title: "HOME BELOW HELLS CANYON", shelf: 0, cat: "Library", stat: "NO CONFIDENTIALITY", class: "none" },
@@ -140,7 +170,7 @@
             document.getElementById('res-stat').innerText = doc.stat;
             document.getElementById('res-stat').className = 'restriction-' + doc.class;
         } else {
-            alert("ID NOT FOUND IN DATABASE");
+            alert("ACCESS DENIED: ID NOT FOUND");
             resultDiv.style.display = 'none';
         }
     }
