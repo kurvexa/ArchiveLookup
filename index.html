@@ -93,7 +93,7 @@
     <h2>Archive Search</h2>
     
     <div class="input-group">
-        <input type="text" id="searchInput" placeholder="Enter Document ID (e.g. RCC2)..." onkeypress="if(event.key === 'Enter') searchArchive()">
+        <input type="text" id="searchInput" placeholder="Enter Document ID" onkeypress="if(event.key === 'Enter') searchArchive()">
         <button onclick="searchArchive()">Locate Document</button>
     </div>
 
@@ -123,7 +123,8 @@
         { id: "RCC2", title: "FM 30-10", shelf: 3, cat: "Military", stat: "RESTRICTED / CONFIDENTIAL", class: "high" },
         { id: "RCC3", title: "FM 30-20", shelf: 3, cat: "Military", stat: "RESTRICTED / CONFIDENTIAL", class: "high" },
         { id: "BT1", title: "FIELD ARTILLERY - MILITARY FUNDAMENTALS", shelf: 4, cat: "Military", stat: "NO CONFIDENTIALITY", class: "none" },
-        { id: "BT2", title: "OUTLINE OF PROCEDURE FOR TRIALS BEFORE COURTS MARTIAL", shelf: 4, cat: "Military", stat: "NO CONFIDENTIALITY", class: "none" }
+        { id: "BT2", title: "OUTLINE OF PROCEDURE FOR TRIALS BEFORE COURTS MARTIAL", shelf: 4, cat: "Military", stat: "NO CONFIDENTIALITY", class: "none" },
+        { id: "CoolMuseumBro", title: "I agree!", shelf: 69, cat: "Easter Egg", stat: "420", class: "high"}
     ];
 
     function searchArchive() {
