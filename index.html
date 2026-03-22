@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archive Locator System</title>
+    <style>
+        body { font-family: 'Courier New', Courier, monospace; background-color: #1a1a1a; color: #00ff00; display: flex; justify-content: center; padding: 50px; }
+        .container { background: #262626; padding: 30px; border-radius: 8px; border: 1px solid #444; width: 100%; max-width: 500px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        h2 { text-align: center; border-bottom: 1px solid #00ff00; padding-bottom: 10px; }
+        input { width: 93%; padding: 12px; margin-bottom: 20px; background: #000; border: 1px solid #00ff00; color: #00ff00; font-size: 1.1em; text-transform: uppercase; }
+        button { width: 100%; padding: 10px; background: #00ff00; color: #000; border: none; font-weight: bold; cursor: pointer; }
+        button:hover { background: #00cc00; }
+        #results { margin-top: 25px; line-height: 1.6; border-top: 1px dashed #666; padding-top: 20px; display: none; }
+        .restriction-high { color: #ff4444; font-weight: bold; }
+        .restriction-none { color: #00ff00; }
+        .restriction-warn { color: #ffcc00; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>ARCHIVE SEARCH</h2>
+    <input type="text" id="searchInput" placeholder="ENTER DOCUMENT ID (e.g. RCC2)..." onkeypress="if(event.key === 'Enter') searchArchive()">
+    <button onclick="searchArchive()">LOCATE DOCUMENT</button>
+
+    <div id="results">
+        <p><strong>TITLE:</strong> <span id="res-title"></span></p>
+        <p><strong>SHELF:</strong> <span id="res-shelf"></span></p>
+        <p><strong>CATEGORY:</strong> <span id="res-cat"></span></p>
+        <p><strong>STATUS:</strong> <span id="res-stat"></span></p>
+    </div>
+</div>
+
+<script>
+    const archive = [
+        // Shelf 0 - Library
+        { id: "L01", title: "THE ERIE CANAL", shelf: 0, cat: "Library", stat: "NO CONFIDENTIALITY", class: "none" },
+        { id: "L02", title: "HOME BELOW HELLS CANYON", shelf: 0, cat: "Library", stat: "NO CONFIDENTIALITY", class: "none" },
+        { id: "L03", title: "HARVARD CLASSICS 1", shelf: 0, cat: "Library", stat: "NO CONFIDENTIALITY", class: "none" },
+        
+        // Shelf 1 - Military
+        { id: "M01", title: "LANDING PARTY MANUAL EXTRACTS", shelf: 1, cat: "Military", stat: "NO CONFIDENTIALITY", class: "none" },
+        { id: "BFM1", title: "FM 21-30", shelf: 1, cat: "Military", stat: "NO CONFIDENTIALITY", class: "none" },
+        { id: "BFM2", title: "FM 21-45", shelf: 1, cat: "Military", stat: "NO CONFIDENTIALITY", class: "none" },
+        { id: "BFM3", title: "FM 23-41", shelf: 1, cat: "Military", stat: "NO CONFIDENTIALITY", class: "none" },
+        
+        // Shelf 2 - Military
+        { id: "DOC1", title: "MEDICAL SUPPORT IN JOINT OPERATIONS", shelf: 2, cat: "Military", stat: "NO CONFIDENTIALITY", class: "none" },
+        { id: "DOC2", title: "HOTSHOT 1970", shelf: 2, cat: "Military", stat: "NO CONFIDENTIALITY", class: "none" },
+        { id: "DOC3", title: "SUBMARINE GEOMORPHOLOGY", shelf: 2, cat: "Military", stat: "NO CONFIDENTIALITY", class: "none" },
+        { id: "DOC4", title: "TROPICAL CYCLONE", shelf: 2, cat: "Military", stat: "NO CONFIDENTIALITY", class: "none" },
+        { id: "DOC5", title: "A DIGEST", shelf: 2, cat: "Military", stat: "EXPORT RESTRICTIONS", class: "warn" },
+        
+        // Shelf 3 - Military (Restricted)
+        { id: "RCC1", title: "NAVY TRAINING COURSE", shelf: 3, cat: "Military", stat: "RESTRICTED / CONFIDENTIAL", class: "high" },
+        { id: "RCC2", title: "FM 30-10", shelf: 3, cat: "Military", stat: "RESTRICTED / CONFIDENTIAL", class: "high" },
+        { id: "RCC3", title: "FM 30-20", shelf: 3, cat: "Military", stat: "RESTRICTED / CONFIDENTIAL", class: "high" },
+        
+        // Shelf 4 - Military
+        { id: "BT1", title: "MILITARY FUNDAMENTALS", shelf: 4, cat: "Military", stat: "NO CONFIDENTIALITY", class: "none" },
+        { id: "BT2", title: "OUTLINE OF PROCEDURE", shelf: 4, cat: "Military", stat: "NO CONFIDENTIALITY", class: "none" }
+    ];
+
+    function searchArchive() {
+        const input = document.getElementById('searchInput').value.toUpperCase().trim();
+        const resultDiv = document.getElementById('results');
+        const doc = archive.find(item => item.id === input);
+
+        if (doc) {
+            resultDiv.style.display = 'block';
+            document.getElementById('res-title').innerText = doc.title;
+            document.getElementById('res-shelf').innerText = doc.shelf;
+            document.getElementById('res-cat').innerText = doc.cat;
+            document.getElementById('res-stat').innerText = doc.stat;
+            document.getElementById('res-stat').className = 'restriction-' + doc.class;
+        } else {
+            alert("ID NOT FOUND IN DATABASE");
+            resultDiv.style.display = 'none';
+        }
+    }
+</script>
+
+</body>
+</html>
