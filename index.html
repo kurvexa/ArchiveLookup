@@ -4,135 +4,129 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Archive Locator System</title>
+
     <style>
-        body { 
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
-            background-color: #1a1d23; 
-            color: #e0e0e0; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px; 
-            margin: 0;
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
         }
 
-        .container { 
-            background: #242933; 
-            padding: 40px; 
-            border-radius: 12px; 
-            border: 1px solid #333b4d; 
-            width: 100%; 
-            max-width: 450px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
-        }
-
-        h2 { 
-            text-align: center; 
-            color: #4ecdc4;
-            font-size: 1.6rem;
-            margin-top: 0;
+        header {
+            border-bottom: 2px solid #2c3e50;
             margin-bottom: 30px;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            border-bottom: 1px solid #333b4d;
             padding-bottom: 15px;
         }
 
-        .input-group {
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-style: italic;
+        }
+
+        section {
+            background: #ffffff;
+            padding: 20px;
             margin-bottom: 20px;
+            border: 1px solid #ddd;
         }
 
-        input { 
-            width: 100%; 
-            padding: 14px; 
-            box-sizing: border-box; 
-            margin-bottom: 15px; 
-            background: #1a1d23; 
-            border: 1px solid #444; 
-            border-radius: 8px;
-            color: #fff;
-            font-size: 1rem; 
-            transition: all 0.3s ease;
+        h2 {
+            color: #8b0000;
+            border-left: 4px solid #8b0000;
+            padding-left: 10px;
         }
 
-        input:focus {
-            outline: none;
-            border-color: #4ecdc4;
-            box-shadow: 0 0 0 2px rgba(78, 205, 196, 0.2);
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
         }
 
-        button { 
-            width: 100%; 
-            padding: 14px; 
-            background: #4ecdc4; 
-            color: #1a1d23; 
-            border: none; 
-            border-radius: 8px;
-            font-weight: 700; 
-            text-transform: uppercase;
-            cursor: pointer; 
-            transition: transform 0.1s, background 0.2s;
+        button {
+            padding: 8px 12px;
+            border: 1px solid #999;
+            background-color: #e6e6e6;
+            cursor: pointer;
         }
 
-        button:hover { 
-            background: #45b7af; 
-            transform: translateY(-1px);
+        button:hover {
+            background-color: #d4d4d4;
         }
 
-        button:active {
-            transform: translateY(0);
+        #results {
+            margin-top: 20px;
+            display: none;
         }
 
-        #results { 
-            margin-top: 30px; 
-            line-height: 1.6; 
-            border-top: 1px solid #333b4d; 
-            padding-top: 25px; 
-            display: none; 
-            animation: fadeIn 0.4s ease;
+        #results p {
+            margin: 8px 0;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        strong {
+            display: inline-block;
+            width: 150px;
+            color: #333;
         }
 
-        #results p { margin: 12px 0; font-size: 0.95rem; color: #b0b0b0; }
-        #results span { color: #fff; font-weight: 500; }
+        .restriction-high {
+            color: #8b0000;
+            font-weight: bold;
+        }
 
-        .restriction-high { color: #ff6b6b !important; font-weight: bold; text-shadow: 0 0 8px rgba(255,107,107,0.3); }
-        .restriction-none { color: #1dd1a1 !important; font-weight: bold; }
-        .restriction-warn { color: #feca57 !important; font-weight: bold; }
-        
-        strong { 
-            color: #4ecdc4; 
-            font-size: 0.75rem; 
-            text-transform: uppercase; 
-            margin-right: 10px; 
-            display: block;
-            margin-bottom: 2px;
-            opacity: 0.8;
+        .restriction-warn {
+            color: #b8860b;
+            font-weight: bold;
+        }
+
+        .restriction-none {
+            color: green;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.8em;
+            color: #777;
+            margin-top: 40px;
         }
     </style>
 </head>
+
 <body>
 
-<div class="container">
-    <h2>Archive Search</h2>
-    
-    <div class="input-group">
-        <input type="text" id="searchInput" placeholder="Enter Document Name/ID" onkeypress="if(event.key === 'Enter') searchArchive()">
-        <button onclick="searchArchive()">Locate Document</button>
-    </div>
+<header>
+    <h1>Archive Locator System</h1>
+    <p class="subtitle">Internal document lookup and catalog reference system.</p>
+</header>
+
+<section>
+    <h2>Search Archive</h2>
+
+    <input type="text" id="searchInput" placeholder="Enter Document Name or ID">
+
+    <button onclick="searchArchive()">Search</button>
 
     <div id="results">
-        <p><strong>Title</strong> <span id="res-title"></span></p>
-        <p><strong>Shelf Location</strong> <span id="res-shelf"></span></p>
-        <p><strong>Category</strong> <span id="res-cat"></span></p>
-        <p><strong>Security Status</strong> <span id="res-stat"></span></p>
+        <p><strong>Title:</strong> <span id="res-title"></span></p>
+        <p><strong>Shelf Location:</strong> <span id="res-shelf"></span></p>
+        <p><strong>Category:</strong> <span id="res-cat"></span></p>
+        <p><strong>Security Status:</strong> <span id="res-stat"></span></p>
     </div>
-</div>
+</section>
+
+<footer>
+    <p>&copy; 2026 Archive Locator System</p>
+</footer>
 
 <script>
     const archive = [
@@ -178,9 +172,17 @@
             document.getElementById('res-stat').innerText = doc.stat;
             document.getElementById('res-stat').className = 'restriction-' + doc.class;
         } else {
-            alert("MATCH NOT FOUND - HAVE YOU CHECKED YOUR DUSTANDGLORYIDS.TXT FILE?");
+            alert("MATCH NOT FOUND - CHECK YOUR RECORDS.");
             resultDiv.style.display = 'none';
         }
     }
+
+    document.getElementById("searchInput").addEventListener("keydown", function(e) {
+        if (e.key === "Enter") {
+            searchArchive();
+        }
+    });
 </script>
+
+</body>
 </html>
